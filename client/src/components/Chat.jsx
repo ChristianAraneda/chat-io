@@ -1,10 +1,9 @@
 import React from "react";
 import estilos from "./Chat.module.css";
-import { Button } from "bootstrap";
 
 const rooms = ["general", "random", "jokes", "javescript"];
 
-export default function Chat(props) {
+function Chat(props) {
   function renderRooms(room) {
     const currentChat = {
       chatName: room,
@@ -93,7 +92,7 @@ export default function Chat(props) {
         <div className={estilos.chanelInfo}>{props.currentChat.chatName}</div>
         <div className={estilos.bodyContainer}>{body}</div>
         <textarea
-          className="textBox"
+          className={estilos.textBox}
           value={props.message}
           onChange={props.handleMessageChange}
           onKeyPress={handleKeyPress}
@@ -102,3 +101,4 @@ export default function Chat(props) {
     </div>
   );
 }
+export default Chat;

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import Form from "./components/UsernameForm";
-import Chat from "./components/Chat.jsx";
+import Chat from "./components/Chat";
 import io from "socket.io-client";
 import immer from "immer";
 import "./App.css";
@@ -63,8 +63,8 @@ function App() {
     const newConnectedRooms = immer(connectedRooms, (draft) => {
       draft.push(room);
     });
-    socketRef.current.emit("join room", room, (message) =>
-      roomJoinCallback(message, room)
+    socketRef.current.emit("join room", room, (messages) =>
+      roomJoinCallback(messages, room)
     );
     setConnectedRooms(newConnectedRooms);
   }
@@ -85,7 +85,7 @@ function App() {
 
   function connect() {
     setConnected(true);
-    socketRef.current = io.connect("/");
+    socketRef.current = io.connect("http://localhost:1337");
     socketRef.current.emit("join server", username);
     socketRef.current.emit("join room", "general", (messages) =>
       roomJoinCallback(messages, "general")
@@ -105,6 +105,8 @@ function App() {
         return newMessages;
       });
     });
+    console.log(socketRef.current);
+    console.log("llegue");
   }
 
   let body;
@@ -115,6 +117,7 @@ function App() {
         handleMessageChange={handleMessageChange}
         sendMessage={sendMessage}
         yourId={socketRef.current ? socketRef.current.id : ""}
+        //  cambie id por ids
         allUsers={allUsers}
         joinRoom={joinRoom}
         connectedRooms={connectedRooms}

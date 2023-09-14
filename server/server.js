@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
       username,
       id: socket.id,
     };
-    user.push(user);
+    users.push(user);
     io.emit("new user", users);
   });
 
@@ -37,6 +37,7 @@ io.on("connection", (socket) => {
         sender,
       };
       socket.to(to).emit("new message", payload);
+      // else es pra mensjaes privados
     } else {
       const payload = {
         content,
