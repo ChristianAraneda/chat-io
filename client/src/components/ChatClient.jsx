@@ -1,38 +1,10 @@
 import estilos from "./Chat.module.css";
 
-function Chat(props) {
-  console.log("Admin cliente", props);
-  function renderUser(user) {
-    if (user.id === props.yourId) {
-      return (
-        <div className={estilos.row} key={user.id}>
-          YOUUUUUU: {user.name}
-        </div>
-      );
-    }
-    const currentChat = {
-      chatName: user.username,
-      isChannel: false,
-      receiverId: user.id,
-    };
-    console.log("current chat", currentChat);
-    return (
-      <div
-        className={estilos.row}
-        onClick={() => {
-          props.toggleChat(currentChat);
-        }}
-        key={user.id}>
-        {user.username}
-      </div>
-    );
-  }
-
-  const filteredUsers = props.allUsers?.filter(
-    (user) => user.id !== "12345678907"
-  );
-
+function ChatCliente(props) {
+  console.log("propiedades cliente", props);
   function renderMessages(message, index) {
+    console.log("miraaaaa", message);
+    console.log(message);
     return (
       <div key={index}>
         <div>
@@ -61,12 +33,6 @@ function Chat(props) {
 
   return (
     <div className={estilos.container}>
-      {props.yourId === "3456789" && (
-        <div className={estilos.sidebar}>
-          <h3>All users</h3>
-          {filteredUsers?.map(renderUser)}
-        </div>
-      )}
       <div className={estilos.chatPanel}>
         <div className={estilos.chanelInfo}>{props.currentChat.chatName}</div>
         <div className={estilos.bodyContainer}>{body}</div>
@@ -80,4 +46,4 @@ function Chat(props) {
     </div>
   );
 }
-export default Chat;
+export default ChatCliente;
